@@ -1,0 +1,55 @@
+==========================================
+     DRONE FOOTAGE WORKFLOW - QUICK START
+==========================================
+
+STEP 1: INSERT SD CARD & IMPORT
+--------------------------------
+cd ~/Documents/workspace/projects/wheeldogg_channel
+./scripts/drone-import.sh "ProjectName"
+
+Example:
+./scripts/drone-import.sh "Beach_Sunset"
+
+
+STEP 2: EDIT IN DAVINCI RESOLVE
+-------------------------------
+1. Open DaVinci Resolve
+2. Create project in: /Volumes/astroball/DroneProjects/ActiveProjects/[YourProject]/DaVinci/
+3. Import from: VIDEO/RAW/
+4. Export to: VIDEO/EXPORTS/
+
+
+STEP 3: ARCHIVE WHEN DONE
+-------------------------
+# Finals only (default):
+./scripts/drone-archive.sh "ProjectName"
+
+# With compression:
+./scripts/drone-archive.sh "ProjectName" --compress
+
+# Keep everything:
+./scripts/drone-archive.sh "ProjectName" --keep-raw
+
+
+CHECK STATUS ANYTIME
+-------------------
+./scripts/drone-summary.sh
+
+
+FOLDER LOCATIONS
+---------------
+Active Projects: /Volumes/astroball/DroneProjects/ActiveProjects/
+Dropbox Backup:  ~/Dropbox/DroneFootage/
+
+
+REMEMBER
+--------
+• Videos and photos are automatically separated
+• Checksums verify all transfers
+• RAW footage kept for 90 days
+• Finals always go to Dropbox
+• Review old projects monthly
+
+
+Full guide: DRONE_WORKFLOW_GUIDE.md
+==========================================

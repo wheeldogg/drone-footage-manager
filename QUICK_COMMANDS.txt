@@ -1,0 +1,83 @@
+==========================================
+     DRONE SD CARD - QUICK COMMANDS
+==========================================
+
+📍 ALWAYS START HERE:
+cd ~/Documents/workspace/projects/wheeldogg_channel
+
+
+📥 IMPORT FOOTAGE
+-----------------
+# Smart import (auto-detects dates) - RECOMMENDED
+./scripts/drone-import-smart.sh
+
+# Direct to Dropbox (when Mac is full)
+./scripts/drone-import-dropbox.sh "2025-11-10_Beach"
+
+
+🗑️ CLEAN SD CARD
+----------------
+# See what's on SD card
+./scripts/drone-cleanup-sd.sh
+
+# Delete specific date (e.g., Nov 9)
+./scripts/drone-cleanup-sd.sh 20251109
+
+
+📊 CHECK STATUS
+--------------
+# View all projects
+./scripts/drone-summary.sh
+
+# Specific project
+./scripts/drone-summary.sh "Beach_Flight"
+
+
+🔧 FIX ISSUES
+------------
+# Fix mixed dates in folder
+./scripts/fix-mixed-dates.sh
+
+
+==========================================
+        TYPICAL WORKFLOW
+==========================================
+
+1. Insert SD card
+
+2. Import footage:
+   ./scripts/drone-import-smart.sh
+   → Choose option 1 (auto-detect)
+
+3. Wait for Dropbox sync (check menu bar)
+
+4. Clean SD card:
+   ./scripts/drone-cleanup-sd.sh 20251109
+
+5. Make Dropbox online-only (save Mac space):
+   → Right-click folders in Finder
+   → "Make Available Online-only"
+
+
+==========================================
+        FILE LOCATIONS
+==========================================
+
+Scripts:  ~/Documents/workspace/projects/wheeldogg_channel/scripts/
+Dropbox:  ~/Dropbox/DroneFootage/2025/
+SD Card:  /Volumes/DJI/DCIM/
+
+
+==========================================
+        REMEMBER
+==========================================
+
+✓ Import same day as flight
+✓ Wait for Dropbox sync before deleting
+✓ Keep recent footage as backup
+✗ Don't format until Dropbox shows "Up to date"
+✗ Don't import if Mac < 10GB free
+
+
+Full guide: DRONE_SD_WORKFLOW.md
+==========================================

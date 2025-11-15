@@ -1,0 +1,41 @@
+# Dropbox files
+*.dropbox
+*.dropbox.attr
+.dropbox
+.dropbox.cache
+
+# Temporary drone import files
+.drone_temp/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Thumbnails
+Thumbs.db
+
+# Log files
+*.log
+
+# Backup files
+*.bak
+*.swp
+*~
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# User-specific data
+cleanup_schedule.txt
+
+# External drive paths (user-specific)
+/Volumes/
+
+# Test files
+test_*.sh
+*.test
