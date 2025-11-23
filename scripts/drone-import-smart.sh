@@ -167,7 +167,7 @@ case $REPLY in
         PROJECT_DIR="$DROPBOX_BASE/$year/$month_name/$PROJECT_NAME"
 
         print_msg $BLUE "\nImporting all files to: $PROJECT_NAME"
-        exec ~/Documents/workspace/projects/wheeldogg_channel/scripts/drone-import-dropbox.sh "$PROJECT_NAME"
+        exec ~/Documents/workspace/projects/drone-footage-manager/scripts/drone-import-dropbox.sh "$PROJECT_NAME"
         ;;
 
     *)
@@ -180,7 +180,7 @@ case $REPLY in
         month=${FIRST_DATE:4:2}
 
         print_msg $BLUE "\nImporting all files to: $PROJECT_NAME"
-        exec ~/Documents/workspace/projects/wheeldogg_channel/scripts/drone-import-dropbox.sh "$PROJECT_NAME"
+        exec ~/Documents/workspace/projects/drone-footage-manager/scripts/drone-import-dropbox.sh "$PROJECT_NAME"
         ;;
 esac
 
