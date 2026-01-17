@@ -110,7 +110,7 @@ case $REPLY in
             PROJECT_DIR="$DROPBOX_BASE/$year/$month_name/$PROJECT_NAME"
 
             print_msg $CYAN "\n--- Importing $PROJECT_NAME ---"
-            mkdir -p "$PROJECT_DIR"/{VIDEO/RAW,VIDEO/SRT,PHOTOS/RAW,PHOTOS/PANORAMA,METADATA}
+            mkdir -p "$PROJECT_DIR"/{VIDEO/RAW,VIDEO/SRT,PHOTOS/RAW,PHOTOS/INSTAGRAM,PHOTOS/PANORAMA,METADATA,MUSIC}
 
             # Count files for this date
             video_count=$(find "$SD_PATH" -name "*${date}*.MP4" 2>/dev/null | wc -l | tr -d ' ')

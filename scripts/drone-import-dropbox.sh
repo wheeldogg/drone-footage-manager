@@ -51,7 +51,7 @@ MONTH_NAME=$(date -j -f "%m" "$MONTH" +"%m-%B" 2>/dev/null || echo "11-November"
 PROJECT_DIR="$DROPBOX_BASE/$YEAR/$MONTH_NAME/$PROJECT_NAME"
 
 print_msg $BLUE "Creating Dropbox project structure..."
-mkdir -p "$PROJECT_DIR"/{VIDEO/RAW,VIDEO/SRT,PHOTOS/RAW,PHOTOS/PANORAMA,METADATA}
+mkdir -p "$PROJECT_DIR"/{VIDEO/RAW,VIDEO/SRT,PHOTOS/RAW,PHOTOS/INSTAGRAM,PHOTOS/PANORAMA,METADATA,MUSIC}
 
 # Create small temp directory
 mkdir -p "$TEMP_DIR"
