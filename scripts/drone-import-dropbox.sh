@@ -13,10 +13,8 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-# Configuration
-DROPBOX_BASE="$HOME/Dropbox/DroneFootage"
-SD_PATH="/Volumes/DJI/DCIM/DJI_001"
-TEMP_DIR="$HOME/.drone_temp"  # Small temp directory for processing
+# Configuration (destination, SD paths) - see scripts/drone-config.sh
+source "$(cd "$(dirname "$0")" && pwd)/drone-config.sh"
 
 # Function to print colored messages
 print_msg() {

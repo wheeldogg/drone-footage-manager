@@ -32,6 +32,7 @@ Thumbs.db
 
 # User-specific data
 cleanup_schedule.txt
+drone.conf
 
 # External drive paths (user-specific)
 /Volumes/

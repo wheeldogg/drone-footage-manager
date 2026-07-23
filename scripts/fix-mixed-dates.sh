@@ -14,7 +14,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Configuration
-DROPBOX_BASE="$HOME/Dropbox/DroneFootage"
+source "$(cd "$(dirname "$0")" && pwd)/drone-config.sh"
 MIXED_FOLDER="$DROPBOX_BASE/2025/11-November/2025-11-09_Drone_Footage"
 
 print_msg() {

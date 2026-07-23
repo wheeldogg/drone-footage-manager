@@ -10,21 +10,55 @@ Automated workflow for managing DJI drone footage with smart organization, cloud
 - 🧹 **Safe Cleanup** - Verifies backup before deleting from SD card
 - 📊 **Project Tracking** - View all projects and storage usage at a glance
 
+## Configuration
+
+By default footage is imported to `~/Dropbox/DroneFootage`. To import somewhere
+else (no Dropbox, an external drive, a local folder), create a `drone.conf` in
+the repo root:
+
+```bash
+DRONE_DEST="$HOME/Movies/DroneFootage"
+```
+
+All scripts read their paths from `scripts/drone-config.sh`. Settings, highest
+precedence first:
+
+| Setting | Meaning | Default |
+|---------|---------|---------|
+| `DRONE_DEST` | Where imports land | `~/Dropbox/DroneFootage` |
+| `DRONE_SD_ROOT` | SD card mount point | `/Volumes/DJI` |
+| `DRONE_SD_PATH` | DJI folder on the card | `$DRONE_SD_ROOT/DCIM/DJI_001` |
+
+Precedence: environment variable → `<repo>/drone.conf` → `~/.drone.conf` →
+default. `drone.conf` is gitignored, so it stays machine-specific.
+
 ## Quick Start
 
 ### 1. Import Footage from SD Card
 ```bash
-cd ~/Documents/workspace/projects/wheeldogg_channel
+cd ~/Documents/workspace/github/drone-footage-manager
 ./scripts/drone-import-smart.sh
 ```
-Choose option 1 to use auto-detected date
+Choose option 1 to use the auto-detected date, or skip the prompt entirely and
+give every flight date its own folder:
+```bash
+./scripts/drone-import-smart.sh --all-dates
+./scripts/drone-import-smart.sh --date 20260718   # just one date
+```
+Imports use `rsync`, so an interrupted run can simply be re-run — files already
+copied are skipped.
 
-### 2. Wait for Dropbox Sync
-Check the Dropbox icon in your menu bar until it says "Up to date"
+### 2. Verify the Copy
+```bash
+./scripts/drone-verify.sh
+```
+Checksums every file on the card against its imported copy. Do this before
+deleting anything. (If importing to Dropbox, wait for the menu bar icon to say
+"Up to date" first.)
 
 ### 3. Clean SD Card
 ```bash
-./scripts/drone-cleanup-sd.sh 20251115  # Use today's date YYYYMMDD
+./scripts/drone-cleanup-sd.sh 20251115  # Use the flight date YYYYMMDD
 ```
 
 That's it! Your footage is backed up and SD card is ready for the next flight.
@@ -54,27 +88,34 @@ brew install terminal-notifier pv ffmpeg
 
 ## File Organization
 
-Your footage will be organized in Dropbox like this:
+Your footage will be organized under `$DRONE_DEST` like this:
 
 ```
-~/Dropbox/DroneFootage/
+$DRONE_DEST/
 ├── 2025/
 │   └── 11-November/
 │       └── 2025-11-15_Drone_Footage/
 │           ├── VIDEO/
-│           │   ├── RAW/      (MP4 files)
-│           │   └── SRT/      (GPS telemetry)
+│           │   ├── RAW/        (MP4 files)
+│           │   ├── SRT/        (GPS telemetry)
+│           │   ├── LRF/        (Low-res proxies for fast editing)
+│           │   └── HYPERLAPSE/ (Hyperlapse frame sets)
 │           ├── PHOTOS/
 │           │   ├── RAW/      (JPG files)
 │           │   └── PANORAMA/ (Panorama sets)
 │           └── METADATA/     (File lists, notes)
 ```
 
+Hyperlapse and panorama sets live outside `DCIM/DJI_001` and have no date in
+their folder name. They are matched back to the right flight date via the DJI
+sequence index in the set name (`001_0567` → the date of clip `0567`).
+
 ## Available Scripts
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| **drone-import-smart.sh** | Smart import with auto date detection | `./scripts/drone-import-smart.sh` |
+| **drone-import-smart.sh** | Smart import with auto date detection | `./scripts/drone-import-smart.sh [--all-dates\|--date YYYYMMDD]` |
+| **drone-verify.sh** | Checksum imported files against the card | `./scripts/drone-verify.sh [YYYYMMDD]` |
 | **drone-import-dropbox.sh** | Direct to Dropbox (low disk space) | `./scripts/drone-import-dropbox.sh "Name"` |
 | **drone-cleanup-sd.sh** | Safely delete from SD card | `./scripts/drone-cleanup-sd.sh 20251115` |
 | **drone-summary.sh** | View all projects and stats | `./scripts/drone-summary.sh` |

@@ -19,7 +19,7 @@ DRONE_BASE="$EXTERNAL_DRIVE/DroneProjects"
 ACTIVE_DIR="$DRONE_BASE/ActiveProjects"
 COMPLETED_DIR="$DRONE_BASE/RecentlyCompleted"
 ARCHIVE_DIR="$DRONE_BASE/Archive"
-DROPBOX_BASE="$HOME/Dropbox/DroneFootage"
+source "$(cd "$(dirname "$0")" && pwd)/drone-config.sh"
 CLEANUP_LOG="$DRONE_BASE/cleanup_schedule.txt"
 
 # Function to print colored messages

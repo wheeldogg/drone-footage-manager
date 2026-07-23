@@ -11,12 +11,11 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m'
 
-# Configuration
-SD_PATH="/Volumes/DJI/DCIM/DJI_001"
-PANORAMA_PATH="/Volumes/DJI/DCIM/PANORAMA"
-DROPBOX_BASE="$HOME/Dropbox/DroneFootage"
+# Configuration (destination, SD paths) - see scripts/drone-config.sh
+source "$(cd "$(dirname "$0")" && pwd)/drone-config.sh"
 
 # Function to print colored messages
 print_msg() {
@@ -26,7 +25,7 @@ print_msg() {
 }
 
 # Check if SD card is mounted
-if [ ! -d "/Volumes/DJI" ]; then
+if [ ! -d "$SD_ROOT" ]; then
     print_msg $RED "Error: DJI SD card not found!"
     print_msg $YELLOW "Please insert your SD card and try again."
     exit 1
@@ -66,6 +65,7 @@ print_msg $BLUE "\nAnalyzing files from $DELETE_DATE..."
 VIDEO_COUNT=$(find "$SD_PATH" -name "*${DELETE_DATE}*.MP4" -o -name "*${DELETE_DATE}*.MOV" 2>/dev/null | grep -v "^\._" | wc -l | tr -d ' ')
 PHOTO_COUNT=$(find "$SD_PATH" -name "*${DELETE_DATE}*.JPG" 2>/dev/null | wc -l | tr -d ' ')
 SRT_COUNT=$(find "$SD_PATH" -name "*${DELETE_DATE}*.SRT" 2>/dev/null | wc -l | tr -d ' ')
+LRF_COUNT=$(find "$SD_PATH" -name "*${DELETE_DATE}*.LRF" 2>/dev/null | wc -l | tr -d ' ')
 
 # Check panoramas
 PANO_COUNT=0
@@ -78,6 +78,7 @@ print_msg $NC "  Videos: $VIDEO_COUNT"
 print_msg $NC "  Photos: $PHOTO_COUNT"
 print_msg $NC "  Panoramas: $PANO_COUNT sets"
 print_msg $NC "  Telemetry: $SRT_COUNT"
+print_msg $NC "  Proxies:   $LRF_COUNT"
 
 if [ $VIDEO_COUNT -eq 0 ] && [ $PHOTO_COUNT -eq 0 ] && [ $PANO_COUNT -eq 0 ]; then
     print_msg $GREEN "\nNo files found for date $DELETE_DATE"
@@ -147,6 +148,12 @@ fi
 if [ $SRT_COUNT -gt 0 ]; then
     print_msg $NC "  Deleting telemetry..."
     find "$SD_PATH" -name "*${DELETE_DATE}*.SRT" -type f -delete 2>/dev/null || true
+fi
+
+# Delete low-res proxies
+if [ $LRF_COUNT -gt 0 ]; then
+    print_msg $NC "  Deleting proxies..."
+    find "$SD_PATH" -name "*${DELETE_DATE}*.LRF" -type f -delete 2>/dev/null || true
 fi
 
 # Delete panoramas
