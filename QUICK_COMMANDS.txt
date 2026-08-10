@@ -33,6 +33,20 @@ cd ~/Documents/workspace/projects/wheeldogg_channel
 ./scripts/drone-summary.sh "Beach_Flight"
 
 
+📸 PHOTOS FROM VIDEO
+--------------------
+# Last 5 frames of clip 0669
+./scripts/drone-extract-frames.sh 0669
+
+# Specific times
+./scripts/drone-extract-frames.sh 0669 --at 0:05,1:23
+
+# Every frame in the last 2 seconds
+./scripts/drone-extract-frames.sh 0669 --last-seconds 2
+
+# → lands in PHOTOS/FROM_VIDEO/
+
+
 🔧 FIX ISSUES
 ------------
 # Fix mixed dates in folder

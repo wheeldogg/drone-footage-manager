@@ -119,7 +119,39 @@ sequence index in the set name (`001_0567` → the date of clip `0567`).
 | **drone-import-dropbox.sh** | Direct to Dropbox (low disk space) | `./scripts/drone-import-dropbox.sh "Name"` |
 | **drone-cleanup-sd.sh** | Safely delete from SD card | `./scripts/drone-cleanup-sd.sh 20251115` |
 | **drone-summary.sh** | View all projects and stats | `./scripts/drone-summary.sh` |
+| **drone-extract-frames.sh** | Pull still photos out of a video | `./scripts/drone-extract-frames.sh 0669 [--at 1:23]` |
 | **fix-mixed-dates.sh** | Separate mixed date folders | `./scripts/fix-mixed-dates.sh` |
+
+## Extracting Photos From Video
+
+Grab stills out of a clip — the last frames as the drone settles on a shot, or
+any timestamp you liked while reviewing.
+
+```bash
+./scripts/drone-extract-frames.sh 0669                  # last 5 frames (default)
+./scripts/drone-extract-frames.sh 0669 --last-frames 15
+./scripts/drone-extract-frames.sh 0669 --last-seconds 2 # every frame in the final 2s
+./scripts/drone-extract-frames.sh 0669 --at 0:05,1:23,00:02:10.5
+./scripts/drone-extract-frames.sh 0669 --every 5        # contact sheet of the clip
+./scripts/drone-extract-frames.sh 0669 --count 10       # 10 evenly spaced frames
+```
+
+The clip number (`0669`, or just `669`) is looked up in the current project
+first, then anywhere under `$DRONE_DEST` — no need to type the full DJI
+filename. A path to a video file works too.
+
+Frames land in `<project>/PHOTOS/FROM_VIDEO/`, named by their timestamp
+(`DJI_20260718153543_0669_D_t00-00-29-983.jpg` = 29.983s in), at full video
+resolution — 4K video gives ~8MP stills, plenty for Instagram. Add `--png` for
+lossless, `--quality 1` for the best JPEG, `--dry-run` to see the times first.
+
+HDR clips (HLG/PQ) are tone mapped to SDR automatically, otherwise the stills
+come out washed out. Override with `--tonemap` / `--no-tonemap`.
+
+To post one: copy the keepers into `PHOTOS/INSTAGRAM/`, then run
+`./drone-instagram-optimize.sh --size 3584 --quality 98`.
+
+Requires `ffmpeg` (`brew install ffmpeg`).
 
 ## Documentation
 

@@ -11,6 +11,22 @@
 # which is the maximum quality Instagram accepts without compression.
 # Instagram compresses any file over 8MB, so this setting keeps you
 # under that threshold while maximizing visual quality.
+#
+# ─── WHERE THE PHOTOS COME FROM ─────────────────────────────────────────
+#
+# This script reads PHOTOS/INSTAGRAM/ — you put your picks in there first.
+# They can be photos the drone took (PHOTOS/RAW/), or stills pulled out of
+# a video clip:
+#
+#   ./scripts/drone-extract-frames.sh 0669           # last 5 frames of clip 0669
+#   ./scripts/drone-extract-frames.sh 0669 --at 1:23 # roughly 1m23s into it
+#
+# Frames land in PHOTOS/FROM_VIDEO/ at full video resolution (4K video ->
+# ~8MP). You don't need an exact timestamp — near enough looks good. Copy
+# the keepers into PHOTOS/INSTAGRAM/ and run this script over them.
+#
+# A 4K frame is 3840px wide, so --size 3584 barely downscales it. Run
+# ./scripts/drone-extract-frames.sh --help for the full set of time options.
 
 # Color codes for output
 RED='\033[0;31m'

@@ -3,6 +3,22 @@
 # wheeldogg-video-creator.sh - Multi-Platform Video Generator
 # Creates YouTube full video, Instagram clip, and YouTube Short from drone footage
 # Usage: ./scripts/wheeldogg-video-creator.sh [--project <folder>] [options]
+#
+# ─── PHOTOS IN THE EDIT ─────────────────────────────────────────────────
+#
+# Photos from the project get a slow zoom (Ken Burns) and are cut in between
+# the video clips. Beyond the drone's own photos, you can pull stills out of
+# any clip and use those — good for opening and closing cards:
+#
+#   ./scripts/drone-extract-frames.sh 0669           # last 5 frames of clip 0669
+#   ./scripts/drone-extract-frames.sh 0669 --at 1:23 # roughly 1m23s into it
+#
+# Roughly the right time is enough — you don't have to find an exact frame.
+# Stills land in PHOTOS/FROM_VIDEO/ at full video resolution; move the ones
+# you want into the photo folder this script reads.
+#
+# See ./scripts/drone-extract-frames.sh --help for all the time options
+# (--last-seconds, --every, --count, --dry-run).
 
 # Colors
 RED='\033[0;31m'
